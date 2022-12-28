@@ -3,9 +3,14 @@ from selenium.webdriver.common.by import By
 import time
 
 class TikTokScraper:
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-gpu")
+
     def __init__(self):
         self.PATH = "chromedriver.exe"
-        self.driver = webdriver.Chrome(self.PATH)
+        self.driver = webdriver.Chrome(self.PATH, options=self.chrome_options)
         self.text = ""
         self.tiktok_user_page_url = "https://www.tiktok.com/@"
 
