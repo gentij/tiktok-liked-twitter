@@ -49,35 +49,38 @@ def main():
     print("Authentication OK")
     scraper = tiktok_scraper.TikTokScraper()
 
-    try:
-        video_urls = scraper.get_user_liked_videos("gentij1")
+    while True:
+        try:
+            video_urls = scraper.get_user_liked_videos("gentij1")
 
-        last_video_index = video_urls.index(last_uploaded_video) if last_uploaded_video in video_urls else 0
+            last_video_index = video_urls.index(last_uploaded_video) if last_uploaded_video in video_urls else 0
 
-        if last_video_index != 0:
-            new_liked_videos = video_urls[:last_video_index]
+            if last_video_index != 0:
+                new_liked_videos = video_urls[:last_video_index]
 
-            for video_url in reversed(new_liked_videos):
-                video_link = scraper.get_liked_video_url(video_urls[0])
+                for video_url in reversed(new_liked_videos):
+                    video_link = scraper.get_liked_video_url(video_urls[0])
 
-                download_file(video_link)
+                    download_file(video_link)
 
-                clip = mp.VideoFileClip("video.mp4")
-                clip_resized = clip.resize(height=1280) 
-                clip_resized.write_videofile("video_resized.mp4", temp_audiofile='temp-audio.m4a', remove_temp=True, codec="libx264", audio_codec="aac")
+                    clip = mp.VideoFileClip("video.mp4")
+                    clip_resized = clip.resize(height=1280) 
+                    clip_resized.write_videofile("video_resized.mp4", temp_audiofile='temp-audio.m4a', remove_temp=True, codec="libx264", audio_codec="aac")
 
-                VideoTweet = video_tweet.VideoTweet("video_resized.mp4")
-                VideoTweet.upload_init()
-                VideoTweet.upload_append()
-                VideoTweet.upload_finalize()
-                VideoTweet.tweet()
-            
-        last_uploaded_video = video_urls[0]
+                    VideoTweet = video_tweet.VideoTweet("video_resized.mp4")
+                    VideoTweet.upload_init()
+                    VideoTweet.upload_append()
+                    VideoTweet.upload_finalize()
+                    VideoTweet.tweet()
+                
+            last_uploaded_video = video_urls[0]
 
-        time.sleep(60.0 - ((time.time() - starttime) % 60.0))
-    except error:
-        print("something went wrong ", error)
-        exit()
+            time_to_sleep = 60 * 60 #1h
+
+            time.sleep(time_to_sleep - ((time.time() - starttime) % time_to_sleep))
+        except error:
+            print("something went wrong ", error)
+            exit()
 
 main()
 
