@@ -7,9 +7,13 @@ class TikTokScraper:
         self.PATH = "chromedriver.exe"
         self.driver = webdriver.Chrome(self.PATH)
         self.text = ""
+        self.tiktok_user_page_url = "https://www.tiktok.com/@"
 
-    def get_user_liked_videos(self, url):
+    def get_user_liked_videos(self, username):
+        url = self.tiktok_user_page_url + username
         self.driver.get(url)
+
+        time.sleep(5)
 
         liked_button_switcher = self.driver.find_element(By.CSS_SELECTOR,  '.e1jjp0pq2')
         liked_button_switcher.click()
@@ -25,7 +29,20 @@ class TikTokScraper:
         for video in videos:
             video_url = video.find_element(By.CSS_SELECTOR, 'a')
             video_urls.append(video_url.get_attribute("href"))
-
-        self.driver.close()
         
         return video_urls
+
+    def get_liked_video_url(self, tiktok_link):
+        print("tiktoklink ", tiktok_link)
+        self.driver.get(tiktok_link)
+
+        time.sleep(5)
+
+        video_link = self.driver.find_element(By.CSS_SELECTOR, 'video')
+
+        print(video_link.get_attribute("src"))
+
+        return video_link.get_attribute("src")
+
+    def close(self):
+        self.driver.close()
