@@ -2,17 +2,19 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import chromedriver_autoinstaller
 import time
-
-chromedriver_autoinstaller.install()
+from selenium.webdriver.chrome.service import Service
+from chromedriver_py import binary_path 
 
 class TikTokScraper:
     chrome_options = webdriver.ChromeOptions()
+    service_object = Service(binary_path)
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument('--disable-dev-shm-usage')
 
     def __init__(self):
+        self.chrome_options.add_argument('--executable_path ' + self.service_object.path)
         self.PATH = "chromedriver.exe"
         self.driver = webdriver.Chrome(self.PATH, options=self.chrome_options)
         self.text = ""
