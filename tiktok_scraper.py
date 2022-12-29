@@ -9,7 +9,7 @@ class TikTokScraper:
     chrome_options = webdriver.ChromeOptions()
     service_object = Service(binary_path)
     chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--headless")
+    # chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument('--disable-dev-shm-usage')
     PATH = chromedriver_autoinstaller.install(cwd=True)
@@ -22,8 +22,6 @@ class TikTokScraper:
     def get_user_liked_videos(self, username):
         url = self.tiktok_user_page_url + username
         self.driver.get(url)
-
-        time.sleep(5)
 
         liked_button_switcher = self.driver.find_element(By.CSS_SELECTOR,  '.e1jjp0pq2')
         liked_button_switcher.click()
