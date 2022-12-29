@@ -47,10 +47,10 @@ def main():
 
     twitter_api.verify_credentials()
     print("Authentication OK")
-    scraper = tiktok_scraper.TikTokScraper()
 
     while True:
         try:
+            scraper = tiktok_scraper.TikTokScraper()
             video_urls = scraper.get_user_liked_videos("gentij1")
 
             last_video_index = video_urls.index(last_uploaded_video) if last_uploaded_video in video_urls else 0
@@ -77,6 +77,7 @@ def main():
 
             time_to_sleep = 60 * 60 #1h
 
+            scraper.close()
             time.sleep(time_to_sleep - ((time.time() - starttime) % time_to_sleep))
         except error:
             print("something went wrong ", error)
