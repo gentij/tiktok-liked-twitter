@@ -5,6 +5,9 @@ import time
 from selenium.webdriver.chrome.service import Service
 from chromedriver_py import binary_path 
 
+
+chromedriver_autoinstaller.install()
+
 class TikTokScraper:
     chrome_options = webdriver.ChromeOptions()
     service_object = Service(binary_path)
