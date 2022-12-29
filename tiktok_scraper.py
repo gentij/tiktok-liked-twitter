@@ -14,8 +14,7 @@ class TikTokScraper:
     chrome_options.add_argument('--disable-dev-shm-usage')
 
     def __init__(self):
-        self.chrome_options.add_argument('--executable_path ' + self.service_object.path)
-        self.PATH = "chromedriver.exe"
+        self.PATH = self.service_object.path
         self.driver = webdriver.Chrome(self.PATH, options=self.chrome_options)
         self.text = ""
         self.tiktok_user_page_url = "https://www.tiktok.com/@"
