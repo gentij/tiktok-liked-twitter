@@ -9,7 +9,7 @@ class TikTokScraper:
     chrome_options = webdriver.ChromeOptions()
     service_object = Service(binary_path)
     chrome_options.add_argument("--no-sandbox")
-    # chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument('--disable-dev-shm-usage')
     PATH = chromedriver_autoinstaller.install(cwd=True)
