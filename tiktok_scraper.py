@@ -5,9 +5,6 @@ import time
 from selenium.webdriver.chrome.service import Service
 from chromedriver_py import binary_path 
 
-
-chromedriver_autoinstaller.install()
-
 class TikTokScraper:
     chrome_options = webdriver.ChromeOptions()
     service_object = Service(binary_path)
@@ -15,9 +12,9 @@ class TikTokScraper:
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument('--disable-dev-shm-usage')
+    PATH = chromedriver_autoinstaller.install(cwd=True)
 
     def __init__(self):
-        self.PATH = self.service_object.path
         self.driver = webdriver.Chrome(self.PATH, options=self.chrome_options)
         self.text = ""
         self.tiktok_user_page_url = "https://www.tiktok.com/@"
